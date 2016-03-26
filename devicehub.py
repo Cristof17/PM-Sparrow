@@ -393,3 +393,4 @@ class Actuator(object):
         topic = self.device.getTopicRoot() + 'actuator/' + self.name + '/state'
 
         self.device.client.publish(topic, json.dumps(data))
+

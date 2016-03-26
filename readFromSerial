@@ -2,21 +2,26 @@
 
 import serial
 import time
+import platform
 from devicehub import *
 import requests
 
 URL = 'https://api.devicehub.net/v2/project:/6982/device/40cdab87-f617-499c-8b97-d5f24c030b9e/sensor/Sparrow/data'
 API_KEY = "1f3dc5c-3f05-47bd-836b-cb0b85d11545"
 
-ser = serial.Serial('/dev/ttyUSB0', 9600)
-line = ser.readline()
+plat = platform.system()
+ser = None
+
+if plat == 'Linux':
+	ser = serial.Serial('/dev/ttyUSB0', 9600)
+elif plat == 'Windows':
+	ser = serial.Serial('COM7', 9600)
+
 url = URL
 
 headers = {'X-ApiKey': API_KEY}
 payload = {'value' : '34'}
-r = requests.post
 while 1:
-	print line
-	time.sleep(0.05)
 	line = ser.readline()
+	print line
 ser.close();
