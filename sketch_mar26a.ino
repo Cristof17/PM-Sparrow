@@ -24,10 +24,8 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-
-Serial.println("===================");
-  Serial.print("Vis: "); Serial.println(uv.readVisible());
-  Serial.print("IR: "); Serial.println(uv.readIR());
+  Serial.println(uv.readVisible());
+  Serial.println(uv.readIR());
  
   // Uncomment if you have an IR LED attached to LED pin!
   //Serial.print("Prox: "); Serial.println(uv.readProx());
@@ -36,10 +34,8 @@ Serial.println("===================");
   // the index is multiplied by 100 so to get the
   // integer index, divide by 100!
   UVindex /= 100.0;  
-  Serial.print("UV: ");  Serial.println(UVindex);
-  Serial.print("Humidity (%RH):");
+  Serial.println(UVindex);
   Serial.println(SHT2x.GetHumidity());
-  Serial.print("Temperature(C):" );
   Serial.println(SHT2x.GetTemperature());
 
 
