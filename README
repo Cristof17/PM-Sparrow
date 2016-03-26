@@ -1,0 +1,6 @@
+Valorile senzorilor sunt trimise pe seriala in felul urmator:
+1. lumina din spectrul normal Adafruit SI 1145
+2. IR Adafruit SI 1145
+3. UV Adafruit SI 1145
+4. Umiditate SHT2x
+5. Temperatura SHT2x
