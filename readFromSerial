@@ -6,21 +6,28 @@ import platform
 from devicehub import *
 import requests
 
-URL = 'https://api.devicehub.net/v2/project:/6982/device/40cdab87-f617-499c-8b97-d5f24c030b9e/sensor/Sparrow/data'
-API_KEY = "1f3dc5c-3f05-47bd-836b-cb0b85d11545"
+#URL_Temperatura = 'https://api.devicehub.net/v2/project:/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Temperatura/data'
+#URL_Umiditate = 'https://api.devicehub.net/v2/project:/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Umiditate/data'
+#URL_Lumina = 'https://api.devicehub.net/v2/project:/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Lumina/data'
+#URL_IR = 'https://api.devicehub.net/v2/project:/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/IR/data'
+#URL_UV= 'https://api.devicehub.net/v2/project:/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/UV/data'
+
+#API_KEY = "1f3dc5c-3f05-47bd-836b-cb0b85d11545"
 
 plat = platform.system()
 ser = None
 
 if plat == 'Linux':
+	print "It's Linux"
 	ser = serial.Serial('/dev/ttyUSB0', 9600)
 elif plat == 'Windows':
+	print "It's Windows"
 	ser = serial.Serial('COM7', 9600)
 
-url = URL
+#url = URL
 
-headers = {'X-ApiKey': API_KEY}
-payload = {'value' : '34'}
+#headers = {'X-ApiKey': API_KEY}
+#payload = {'value' : '34'}
 while 1:
 	line = ser.readline()
 	print line

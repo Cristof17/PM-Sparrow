@@ -4,3 +4,8 @@ Valorile senzorilor sunt trimise pe seriala in felul urmator:
 3. UV Adafruit SI 1145
 4. Umiditate SHT2x
 5. Temperatura SHT2x
+
+
+Dependancies: 
+
+pip install paho-mqtt
