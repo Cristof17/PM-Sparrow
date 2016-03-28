@@ -3,32 +3,47 @@
 import serial
 import time
 import platform
-from devicehub import *
+from devicehub import Sensor, Device, Project
 import requests
+import json
 
-#URL_Temperatura = 'https://api.devicehub.net/v2/project:/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Temperatura/data'
-#URL_Umiditate = 'https://api.devicehub.net/v2/project:/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Umiditate/data'
-#URL_Lumina = 'https://api.devicehub.net/v2/project:/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Lumina/data'
-#URL_IR = 'https://api.devicehub.net/v2/project:/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/IR/data'
-#URL_UV= 'https://api.devicehub.net/v2/project:/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/UV/data'
+URL_Temperatura = 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Temperatura/data'
+URL_Umiditate = 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Umiditate/data'
+URL_Lumina = 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Lumina/data'
+URL_IR = 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/IR/data'
+URL_UV= 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/UV/data'
 
-#API_KEY = "1f3dc5c-3f05-47bd-836b-cb0b85d11545"
+PROJECT_ID = '6982'
+DEVICE = '52367fa4-a84a-44f7-94dc-f68dc80b8226'
+API_KEY = 'b091f489-54ef-478d-aae3-a5428c0056d8'
+headers = {'X-ApiKey': API_KEY, 'Content-Type':'application/json'}
+payload = {'value' : '34'}
+
 
 plat = platform.system()
 ser = None
 
 if plat == 'Linux':
 	print "It's Linux"
-	ser = serial.Serial('/dev/ttyUSB0', 9600)
+#	ser = serial.Serial('/dev/ttyUSB0', 9600)
 elif plat == 'Windows':
 	print "It's Windows"
-	ser = serial.Serial('COM7', 9600)
+#	ser = serial.Serial('COM7', 9600)
+else:
+	print "It's not Linux nor Windows"
 
-#url = URL
+#while 1:
+#	line = ser.readline()
+#	print line
+#ser.close();
 
-#headers = {'X-ApiKey': API_KEY}
-#payload = {'value' : '34'}
-while 1:
-	line = ser.readline()
-	print line
-ser.close();
+r = requests.post (URL_Temperatura, headers=headers, data=json.dumps(payload))
+print r
+r = requests.post (URL_Umiditate, headers=headers, data=json.dumps(payload))
+print r
+r = requests.post (URL_Lumina, headers=headers, data=json.dumps(payload))
+print r
+r = requests.post (URL_IR, headers=headers, data=json.dumps(payload))
+print r
+r = requests.post (URL_UV, headers=headers, data=json.dumps(payload))
+print r
