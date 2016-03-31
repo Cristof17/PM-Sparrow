@@ -18,7 +18,11 @@ DEVICE = '52367fa4-a84a-44f7-94dc-f68dc80b8226'
 API_KEY = 'b091f489-54ef-478d-aae3-a5428c0056d8'
 headers = {'X-ApiKey': API_KEY, 'Content-Type':'application/json'}
 payload = {'value' : '34'}
+values = []
+parameters = {"Zona":0, "ID":1, "Lumina":2 , "IR":3, "UV":4, "HUM":5, "TEMP":6}
 
+for i in range(7):
+	values.append(0)
 
 plat = platform.system()
 ser = None
@@ -32,11 +36,21 @@ elif plat == 'Windows':
 else:
 	print "It's not Linux nor Windows"
 
+time.sleep(1)
+
 while 1:
 	line = ser.readline()
 	time.sleep(0.5)
-	print line.split(":")[-1].strip("\n");
-	
+	#Memorize values from a batch of data to send to DeviceHub API
+	number = line.split(":")[-1].strip("\r\n")
+	name = line.split(":")[0]
+	print name
+	print number
+	if name is not None:
+		print parameters.get(name)
+		values[parameters.get(name)] = number
+		print values
+			
 ser.close();
 
 #r = requests.post (URL_Temperatura, headers=headers, data=json.dumps(payload))
