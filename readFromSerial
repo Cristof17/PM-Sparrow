@@ -6,6 +6,17 @@ import platform
 from devicehub import Sensor, Device, Project
 import requests
 import json
+from threading import Thread
+
+
+def sendData(URL, headers, values):
+	for i in range(len(values)):
+		if i == 0 or i == 1:
+			continue
+		payload = {'value' : str(values[i])}
+		r = requests.post (URL[i-2], headers=headers, data=json.dumps(payload))
+		print r
+
 
 URL =[]
 for i in range(5):
@@ -54,6 +65,10 @@ while 1:
 		values[parameters.get(name)] = number
 		if name == 'Zona':
 			print values
+			thread = Thread(target = sendData, args = (URL, headers, values))
+			thread.start()
+			thread.join()
+			
 			
 ser.close();
 
