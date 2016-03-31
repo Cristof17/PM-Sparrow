@@ -25,25 +25,27 @@ ser = None
 
 if plat == 'Linux':
 	print "It's Linux"
-#	ser = serial.Serial('/dev/ttyUSB0', 9600)
+	ser = serial.Serial('/dev/ttyUSB0', 9600)
 elif plat == 'Windows':
 	print "It's Windows"
-#	ser = serial.Serial('COM7', 9600)
+	ser = serial.Serial('COM7', 9600)
 else:
 	print "It's not Linux nor Windows"
 
-#while 1:
-#	line = ser.readline()
-#	print line
-#ser.close();
+while 1:
+	line = ser.readline()
+	time.sleep(0.5)
+	print line.split(":")[-1].strip("\n");
+	
+ser.close();
 
-r = requests.post (URL_Temperatura, headers=headers, data=json.dumps(payload))
-print r
-r = requests.post (URL_Umiditate, headers=headers, data=json.dumps(payload))
-print r
-r = requests.post (URL_Lumina, headers=headers, data=json.dumps(payload))
-print r
+#r = requests.post (URL_Temperatura, headers=headers, data=json.dumps(payload))
+#print r
+#r = requests.post (URL_Umiditate, headers=headers, data=json.dumps(payload))
+#print r
+#r = requests.post (URL_Lumina, headers=headers, data=json.dumps(payload))
+#print r
 r = requests.post (URL_IR, headers=headers, data=json.dumps(payload))
-print r
-r = requests.post (URL_UV, headers=headers, data=json.dumps(payload))
-print r
+#print r
+#r = requests.post (URL_UV, headers=headers, data=json.dumps(payload))
+#print r
