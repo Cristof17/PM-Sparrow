@@ -11,12 +11,11 @@ struct Data{
   //THIS MUST BE EXACTLY THE SAME ON THE OTHER ARDUINO
   uint8_t zona;
   uint8_t id;
-  uint16_t lumina;
-  uint16_t ir;
-  uint16_t uv;
+  uint32_t lumina;
+  uint32_t ir;
+  uint32_t uv;
   uint16_t hum;
   uint16_t temp;
-  uint8_t crc;
 };
 
 void blinkLED() //blinks the LED
@@ -37,10 +36,11 @@ void setup() {
   Wire.begin();
   Serial.begin(9600);
   digitalWrite(controlPin, LOW);
+  pinMode(8, OUTPUT);
+  digitalWrite(8, LOW);
+  uv.begin();
   
   ST.begin(details(data));
-  pinMode(8, OUTPUT);
-  digitalWrite(8, LOW); 
 
   data.zona = ZONA;
   data.id = ID;
@@ -49,7 +49,6 @@ void setup() {
   data.uv = 0;
   data.hum = 0;
   data.temp = 0;
-  data.crc = 0;
 }
 
 void loop() {
@@ -65,6 +64,10 @@ void loop() {
   data.hum = SHT2x.GetHumidity();
   data.temp = SHT2x.GetTemperature();
   ST.sendData();
+  Serial.print("UV:");
+  Serial.println(data.lumina);
+  Serial.print("Temp:");
+  Serial.println(data.temp);
   blinkLED();
   delay(1000);
 
