@@ -55,13 +55,11 @@ else:
 while 1:
 	line = ser.readline()
 	time.sleep(0.5)
+	print line.strip("\r\n")
 	#Memorize values from a batch of data to send to DeviceHub API
 	number = line.split(":")[-1].strip("\r\n")
 	name = line.split(":")[0]
-	print name
-	print number
 	if name in parameters.keys() and name is not None and name != "":
-		print parameters.get(name)
 		values[parameters.get(name)] = number
 		if name == 'Zona':
 			print values
@@ -71,14 +69,3 @@ while 1:
 			
 			
 ser.close();
-
-#r = requests.post (URL_Temperatura, headers=headers, data=json.dumps(payload))
-#print r
-#r = requests.post (URL_Umiditate, headers=headers, data=json.dumps(payload))
-#print r
-#r = requests.post (URL_Lumina, headers=headers, data=json.dumps(payload))
-#print r
-r = requests.post (URL_IR, headers=headers, data=json.dumps(payload))
-#print r
-#r = requests.post (URL_UV, headers=headers, data=json.dumps(payload))
-#print r
