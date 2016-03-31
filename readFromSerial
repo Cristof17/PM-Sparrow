@@ -7,11 +7,15 @@ from devicehub import Sensor, Device, Project
 import requests
 import json
 
-URL_Temperatura = 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Temperatura/data'
-URL_Umiditate = 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Umiditate/data'
-URL_Lumina = 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Lumina/data'
-URL_IR = 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/IR/data'
-URL_UV= 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/UV/data'
+URL =[]
+for i in range(5):
+	URL.append("")
+
+URL[0] = 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Lumina/data'
+URL[1] = 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/IR/data'
+URL[2]= 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/UV/data'
+URL[3] = 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Umiditate/data'
+URL[4] = 'https://api.devicehub.net/v2/project/6982/device/52367fa4-a84a-44f7-94dc-f68dc80b8226/sensor/Temperatura/data'
 
 PROJECT_ID = '6982'
 DEVICE = '52367fa4-a84a-44f7-94dc-f68dc80b8226'
@@ -36,7 +40,6 @@ elif plat == 'Windows':
 else:
 	print "It's not Linux nor Windows"
 
-time.sleep(1)
 
 while 1:
 	line = ser.readline()
@@ -46,10 +49,11 @@ while 1:
 	name = line.split(":")[0]
 	print name
 	print number
-	if name is not None:
+	if name in parameters.keys() and name is not None and name != "":
 		print parameters.get(name)
 		values[parameters.get(name)] = number
-		print values
+		if name == 'Zona':
+			print values
 			
 ser.close();
 
